@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://thefolio-project-1-ses0.onrender.com/api',
 });
 
 // This interceptor runs before EVERY request.
