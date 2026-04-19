@@ -16,12 +16,13 @@ connectDB();
 // ── Middleware ─────────────────────────────────────────────────
 
 // UPDATED CORS: Allow both local testing and your live Vercel site
-app.use(cors({ 
+app.use(cors({
   origin: [
-    'http://localhost:3000', 
-    'https://thefolio-project-roan.vercel.app' 
-  ], 
-  credentials: true 
+    "http://localhost:3000",
+    "https://thefolio-project-roan.vercel.app",
+    "https://thefolio-project-55964wkrb-lvejano23101133-coders-projects.vercel.app" // Idagdag itong URL mula sa error mo
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
