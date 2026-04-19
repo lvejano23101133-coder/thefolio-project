@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
-import myPic from '../assets/mypic.jpg'; // Verify file path to your photo!
+import myPic from '../assets/mypic.jpg';
 import '../App.css';
 
 const HomePage = () => {
@@ -10,7 +10,8 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🛰️ Phase 2: Fetch Live Posts from Database
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -37,7 +38,6 @@ const HomePage = () => {
   return (
     <div className="home-content-fade-in">
 
-      {/* 🌿 Profile Hero */}
       <div className="index-hero-wrapper">
         <div className="index-hero-content">
           <div className="index-hero-text">
@@ -57,7 +57,6 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* 🌿 Explore My Portfolio Section */}
       <section style={{ backgroundColor: '#c3f0d7', padding: '40px 20px' }}>
         <h2 style={{ textAlign: 'left', color: '#2a5a42', paddingLeft: '2rem' }}>Explore My Portfolio</h2>
         <p style={{ textAlign: 'center', color: '#344e41', marginBottom: '25px' }}>
@@ -83,12 +82,10 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 🚀 Phase 2 Feature: Dynamic Database Post Feed below the pillars */}
       <div className="contact-page-wrapper">
         <div className="contact-card" style={{ maxWidth: '1100px' }}>
           
           {posts.length === 0 ? (
-            /* ✅ SHOW THIS CENTERED CARD IF DATABASE IS EMPTY */
             <div className="community-gallery-card">
               <h3>Community Gallery</h3>
               <p>Live uploads from your Node.js database!</p>
@@ -96,7 +93,6 @@ const HomePage = () => {
               <Link to="/create" className="create-post-link">Create the First Post</Link>
             </div>
           ) : (
-            /* ✅ SHOW THIS GRID IF DATABASE HAS POSTS */
             <>
               <header className="section-header" style={{ marginBottom: '30px', textAlign: 'center' }}>
                 <h2>Community Gallery</h2>
@@ -108,9 +104,12 @@ const HomePage = () => {
                   <article key={post._id} className="aesthetic-item" style={{ textAlign: 'left', background: 'white' }}>
                     {post.image && (
                       <img 
-                        src={`http://localhost:5000/uploads/${post.image}`} 
+                        src={`${API_BASE_URL}/uploads/${post.image}`} 
                         alt={post.title} 
-                        style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '15px' }} 
+                        style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '15px' }}
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
+                        }}
                       />
                     )}
                     <div style={{ padding: '15px 0' }}>
@@ -121,6 +120,9 @@ const HomePage = () => {
                       </h4>
                       <p>{post.body.substring(0, 100)}...</p>
                       <small style={{ color: '#666' }}>By {post.author?.name || 'Guest'}</small>
+                      <div style={{ marginTop: '5px', fontSize: '0.8rem', color: '#888' }}>
+                        💬 Comment
+                      </div>
                     </div>
                   </article>
                 ))}

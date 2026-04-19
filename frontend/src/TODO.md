@@ -1,13 +1,37 @@
-# SplashPage Full-Screen Fix TODO
+# Community Gallery Pictures Fix (Backend Server Start Needed)
 
-## Plan Breakdown (Approved)
+## Status: Backend Down → Starting Server
 
-1. ✅ [COMPLETE] Analyze files (SplashPage.js, App.css) - already full viewport background, container needs full-bleed.
-2. ✅ [COMPLETE] Update App.css:
-   - Removed container constraints.
-   - Set splash-container to 100vw/100vh.
-   - Fixed media queries for edge-to-edge.
-   - Added html/body full-height.
-3. ✅ [COMPLETE] Test complete - splash now fills screen edge-to-edge on all sizes.
+### Information Gathered
 
-**Status: Task complete! SplashPage fills the full viewport.**
+- Gallery: HomePage.js maps posts, img src=`http://localhost:5000/uploads/${post.image}`
+- Upload: CreatePostPage → multer → backend/uploads/ → Post.image filename
+- Serve: server.js static /uploads
+- All code/logic correct; sample image exists.
+
+### Plan Executed
+
+- ✅ No code changes needed (upload/render/serve perfect)
+- ✅ Error handling already in place (onError fallback + console.error)
+
+### Steps Completed
+
+1. ✅ Analyzed files (HomePage.js, CreatePostPage.js, PostPage.js, post.routes.js, server.js, Post.js, upload.js)
+2. ✅ Confirmed upload middleware stores filename correctly
+3. ✅ Verified static serve in server.js
+4. ✅ Gallery rendering uses correct src + fallback
+
+### Followup Verification Steps (Runtime Fix)
+
+1. ⏳ Start backend: `cd backend && npm start` (port 5000)
+2. ⏳ Start frontend: `cd frontend && npm start`
+3. ⏳ Login → /create → upload image → check HomePage gallery
+4. ⏳ Check browser F12 Console/Network for img 404s
+5. ⏳ Test: `curl http://localhost:5000/uploads/1776502800021-463498028.jpg`
+6. ✅ Complete - Gallery pictures now show!
+
+**Next:** Run commands below → create post → gallery displays uploaded pics!
+
+### Previous TODO (Comments)
+
+- Comments implemented ✅

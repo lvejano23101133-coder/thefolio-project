@@ -1,8 +1,8 @@
-// frontend/src/api/axios.js
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  // Dinudugtong natin ang /api dito para kahit anong link ang nasa Vercel, gagana ang login
+  baseURL: `${process.env.REACT_APP_API_URL}/api` || 'http://localhost:5000/api',
 });
 
 instance.interceptors.request.use((config) => {
