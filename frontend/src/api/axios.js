@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  // Dinudugtong natin ang /api dito para kahit anong link ang nasa Vercel, gagana ang login
+  // Pinagsama natin ang Vercel variable at ang /api path
   baseURL: `${process.env.REACT_APP_API_URL}/api` || 'http://localhost:5000/api',
 });
 
