@@ -31,7 +31,6 @@ function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    // 🛑 Simple Validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match!');
       return;
@@ -45,20 +44,19 @@ function RegisterPage() {
     setLoading(true);
 
     try {
-      // 🛰️ CORRECTED ENDPOINT: Iniba natin mula /users papuntang /auth
+      // 🛰️ MATCHING BACKEND FIELDS:
+      // We send 'name' and 'email' because that is what the server requires.
       await API.post('/auth/register', {
-        fullName: formData.fullName,
-        username: formData.username,
+        name: formData.fullName,   
+        email: formData.username,  
         birthday: formData.birthday,
         password: formData.password,
         level: formData.level
       });
 
-      // Kapag successful, i-redirect sa login page
       alert('Registration successful! You can now log in.');
       navigate('/login');
     } catch (err) {
-      // Ipinapakita ang error message mula sa server (e.g. "User already exists")
       setError(err.response?.data?.message || 'Something went wrong. Try again.');
     } finally {
       setLoading(false);
@@ -68,8 +66,6 @@ function RegisterPage() {
   return (
     <div className="register-page-wrapper">
       <div className="register-card">
-        
-        {/* Left Side: Registration Form */}
         <div className="register-form-container">
           <h2>Join My Art Community</h2>
           <p className="subtitle">By signing up, you will receive creative updates and photography inspirations.</p>
@@ -90,11 +86,11 @@ function RegisterPage() {
             </div>
 
             <div className="form-group">
-              <label>Username (Email)</label>
+              <label>Email Address</label>
               <input 
                 type="email" 
                 name="username" 
-                placeholder="Preferred Email" 
+                placeholder="email@example.com" 
                 value={formData.username} 
                 onChange={handleChange} 
                 required 
@@ -176,11 +172,9 @@ function RegisterPage() {
           </form>
         </div>
 
-        {/* Right Side: Artwork Image */}
         <div className="register-image-container">
           <img src={registerImg} alt="Art Community" />
         </div>
-
       </div>
     </div>
   );
