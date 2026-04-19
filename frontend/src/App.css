@@ -239,6 +239,118 @@ html, body {
   padding: 40px 20px;
 }
 
+/* --- 🎨 COMMUNITY GALLERY - NEW AESTHETIC POST GRID --- */
+.community-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.community-post-card {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.community-post-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(54, 116, 86, 0.15);
+}
+
+.community-post-image {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+}
+
+.community-post-content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.community-post-title {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--sage-dark);
+}
+
+.community-post-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* Enhanced empty state */
+.community-gallery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  text-align: center;
+  background: linear-gradient(135deg, white 0%, #f8fff9 100%);
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(195, 240, 215, 0.5);
+}
+
+[data-theme="dark"] .community-gallery-card,
+[data-theme="dark"] .community-post-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .community-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 15px;
+  }
+  
+  .community-post-card {
+    min-height: 380px;
+  }
+  
+  .community-post-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .community-post-content {
+    padding: 16px;
+  }
+  
+  .community-post-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Ensure aesthetic-item compatibility (existing explore grid) */
+.aesthetic-item {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
 .contact-card {
   background-color: white;
   padding: 40px;

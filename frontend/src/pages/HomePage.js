@@ -52,7 +52,19 @@ const HomePage = () => {
           </div>
 
           <div className="index-hero-image">
-            <img src={myPic} alt="Lyka" />
+            {user && user.profilePicture ? (
+              <img 
+                src={`${API_BASE_URL}/uploads/${user.profilePicture}`} 
+                alt={user.name} 
+                className="profile-circle"
+              />
+            ) : (
+              <img 
+                src={myPic} 
+                alt="Default Profile" 
+                className="profile-circle"
+              />
+            )}
           </div>
         </div>
       </div>
@@ -99,18 +111,18 @@ const HomePage = () => {
                 <p>Live uploads from your Node.js database!</p>
               </header>
 
-              <div className="galleryy">
+              <div className="community-gallery">
                 {posts.map(post => (
-                  <article key={post._id} className="aesthetic-item" style={{ textAlign: 'left', background: 'white' }}>
+                  <article key={post._id} className="community-post-card aesthetic-item" style={{ textAlign: 'left' }}> 
                     {post.image && (
                       <img 
                         src={`${API_BASE_URL}/uploads/${post.image}`} 
                         alt={post.title} 
-                        style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '15px' }}
+                        className="community-post-image"
                         onError={(e) => {
                           e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found';
                         }}
-                      />
+                      /> 
                     )}
                     <div style={{ padding: '15px 0' }}>
                       <h4>
