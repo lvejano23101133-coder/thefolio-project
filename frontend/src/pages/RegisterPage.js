@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../api/axios'; // Siguraduhing tama ang path ng axios mo
-import registerImg from '../assets/art.jpg'; // Palitan ng tamang file name ng magandang artwork mo!
+import API from '../api/axios'; 
+import registerImg from '../assets/art.jpg'; 
 import '../App.css';
 
 function RegisterPage() {
@@ -12,7 +12,7 @@ function RegisterPage() {
     birthday: '',
     password: '',
     confirmPassword: '',
-    level: 'Beginner', // Default value
+    level: 'Beginner',
     agreeToTerms: false
   });
 
@@ -45,8 +45,8 @@ function RegisterPage() {
     setLoading(true);
 
     try {
-      // 🛰️ POST call sa iyong Backend API
-      await API.post('/users/register', {
+      // 🛰️ CORRECTED ENDPOINT: Iniba natin mula /users papuntang /auth
+      await API.post('/auth/register', {
         fullName: formData.fullName,
         username: formData.username,
         birthday: formData.birthday,
@@ -55,8 +55,10 @@ function RegisterPage() {
       });
 
       // Kapag successful, i-redirect sa login page
+      alert('Registration successful! You can now log in.');
       navigate('/login');
     } catch (err) {
+      // Ipinapakita ang error message mula sa server (e.g. "User already exists")
       setError(err.response?.data?.message || 'Something went wrong. Try again.');
     } finally {
       setLoading(false);
@@ -88,11 +90,11 @@ function RegisterPage() {
             </div>
 
             <div className="form-group">
-              <label>Username</label>
+              <label>Username (Email)</label>
               <input 
-                type="text" 
+                type="email" 
                 name="username" 
-                placeholder="Preferred Username" 
+                placeholder="Preferred Email" 
                 value={formData.username} 
                 onChange={handleChange} 
                 required 
@@ -134,7 +136,6 @@ function RegisterPage() {
               />
             </div>
 
-            {/* Radio Buttons for Level */}
             <div className="form-group">
               <label>Level</label>
               <div className="radio-group">
@@ -159,7 +160,6 @@ function RegisterPage() {
               </div>
             </div>
 
-            {/* Terms and Conditions Checkbox */}
             <div className="form-group checkbox-group">
               <input 
                 type="checkbox" 
@@ -176,7 +176,7 @@ function RegisterPage() {
           </form>
         </div>
 
-        {/* Right Side: Image Placeholder */}
+        {/* Right Side: Artwork Image */}
         <div className="register-image-container">
           <img src={registerImg} alt="Art Community" />
         </div>
